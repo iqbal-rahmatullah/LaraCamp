@@ -22,14 +22,38 @@
                     <a class="nav-link" href="#">Business</a>
                 </li>
             </ul>
-            <div class="d-flex">
-                <a href="#" class="btn btn-master btn-secondary me-3">
-                    Sign In
-                </a>
-                <a href="#" class="btn btn-master btn-primary">
-                    Sign Up
-                </a>
-            </div>
+            @auth
+                <div class="d-flex user-logged dropdown">
+                    <a href="#" class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Halo, {{ Auth::user()->name }}!
+                        <img src={{ Auth::user()->avatar }} class="user-photo rounded-circle" alt="">
+                    </a>
+                    <ul class="dropdown-menu" style="left: auto; right: 0;">
+                        <li><a class="dropdown-item" href="#">My Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="signOutHandler()">Sign Out</a>
+                            <form action="{{ route('logout') }}" method="POST" id="submit-logout">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            @else
+                <div class="d-flex">
+                    <a href="{{ route('login') }}" class="btn btn-master btn-secondary me-3">
+                        Sign In
+                    </a>
+                    <a href="{{ route('login') }}" class="btn btn-master btn-primary">
+                        Sign Up
+                    </a>
+                </div>
+            @endauth
         </div>
     </div>
 </nav>
+
+<script>
+    function signOutHandler() {
+        event.preventDefault();
+        document.getElementById('submit-logout').submit()
+    }
+</script>
