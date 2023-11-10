@@ -10,4 +10,9 @@ class Camp extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['title', 'slug', 'description', 'price'];
+
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 }

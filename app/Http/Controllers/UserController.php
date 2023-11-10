@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 
 class UserController extends Controller
 {
@@ -21,7 +22,11 @@ class UserController extends Controller
 
     public function googleCallback()
     {
-        $userGoogle = Socialite::driver('google')->user();
+        try {
+            $userGoogle = Socialite::driver('google')->user();
+        } catch (InvalidStateException $e) {
+            $userGoogle = Socialite::driver('google')->stateless()->user();
+        }
 
         $user = [
             'name' => $userGoogle->name,

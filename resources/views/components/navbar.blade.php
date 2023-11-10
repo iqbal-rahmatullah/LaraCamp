@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('welcome') }}">
             <img src="{{ asset('images/logo.png') }}" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -29,8 +29,8 @@
                         <img src={{ Auth::user()->avatar }} class="user-photo rounded-circle" alt="">
                     </a>
                     <ul class="dropdown-menu" style="left: auto; right: 0;">
-                        <li><a class="dropdown-item" href="#">My Dashboard</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="signOutHandler()">Sign Out</a>
+                        <li><a class="dropdown-item" href="{{ route('user.dashboard') }}">My Dashboard</a></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="signOutHandler()">Sign Out</a>
                             <form action="{{ route('logout') }}" method="POST" id="submit-logout">
                                 @csrf
                             </form>
