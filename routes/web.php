@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $camp = Camp::all();
+    return view('welcome', compact('camp'));
 })->name('welcome');
 
 Route::controller(CheckoutController::class)->group(function () {
